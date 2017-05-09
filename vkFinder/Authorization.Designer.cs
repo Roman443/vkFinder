@@ -1,11 +1,14 @@
-﻿namespace vkFinder
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace vkFinder
 {
     partial class Form2
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -132,13 +135,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button authorizeButton;
-        private System.Windows.Forms.Label loginLabel;
-        private System.Windows.Forms.TextBox loginBox;
-        private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.TextBox passwordBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.ComponentModel.BackgroundWorker AuthorizeWorker;
+        private Button authorizeButton;
+        private Label loginLabel;
+        private TextBox loginBox;
+        private Label passwordLabel;
+        private TextBox passwordBox;
+        private Label label3;
+        private CheckBox checkBox1;
+        private BackgroundWorker AuthorizeWorker;
     }
 }

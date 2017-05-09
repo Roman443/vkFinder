@@ -63,12 +63,6 @@ namespace vkFinder
                 }).ToList();
         }
 
-        public void AuthorizationSuccess()
-        {
-            authorization.Enabled = false;
-            statusLabel.Text = @"Статус: Авторизован";
-        }
-
         private void UserProcesserDoWork(object sender, DoWorkEventArgs e)
         {
             if (!Vk.IsAuthorized) return;

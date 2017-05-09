@@ -1,11 +1,16 @@
-﻿namespace vkFinder
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace vkFinder
 {
     partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Освободить все используемые ресурсы.
@@ -55,7 +60,6 @@
             this.sexFemale = new System.Windows.Forms.RadioButton();
             this.cityLabel = new System.Windows.Forms.Label();
             this.cityBox = new System.Windows.Forms.TextBox();
-            this.statusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -311,21 +315,11 @@
             this.cityBox.TabIndex = 24;
             this.cityBox.Text = "Хабаровск";
             // 
-            // statusLabel
-            // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(12, 371);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(129, 13);
-            this.statusLabel.TabIndex = 25;
-            this.statusLabel.Text = "Статус: Не авторизован";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 390);
-            this.Controls.Add(this.statusLabel);
+            this.ClientSize = new System.Drawing.Size(919, 379);
             this.Controls.Add(this.cityBox);
             this.Controls.Add(this.cityLabel);
             this.Controls.Add(this.sexFemale);
@@ -365,34 +359,33 @@
 
         #endregion
 
-        private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.Label selfName;
-        private System.Windows.Forms.Label selfGroups;
-        private System.Windows.Forms.TextBox groupScreenName;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown minAge;
-        private System.Windows.Forms.NumericUpDown maxAge;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown minIntGroups;
-        private System.Windows.Forms.Label usersCount;
-        private System.Windows.Forms.Label userName;
-        private System.Windows.Forms.LinkLabel userProfileUrl;
-        private System.Windows.Forms.PictureBox userPhoto;
-        private System.Windows.Forms.ListView userListView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Button authorization;
-        private System.ComponentModel.BackgroundWorker UserProcesser;
-        private System.Windows.Forms.ProgressBar userCheckingProgress;
-        private System.Windows.Forms.Label sexLabel;
-        private System.Windows.Forms.RadioButton sexMale;
-        private System.Windows.Forms.RadioButton sexFemale;
-        private System.Windows.Forms.Label cityLabel;
-        private System.Windows.Forms.TextBox cityBox;
-        private System.Windows.Forms.Label statusLabel;
+        private Button startButton;
+        private Label selfName;
+        private Label selfGroups;
+        private TextBox groupScreenName;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private NumericUpDown minAge;
+        private NumericUpDown maxAge;
+        private Label label6;
+        private NumericUpDown minIntGroups;
+        private Label usersCount;
+        private Label userName;
+        private LinkLabel userProfileUrl;
+        private PictureBox userPhoto;
+        private ListView userListView;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private Button authorization;
+        private BackgroundWorker UserProcesser;
+        private ProgressBar userCheckingProgress;
+        private Label sexLabel;
+        private RadioButton sexMale;
+        private RadioButton sexFemale;
+        private Label cityLabel;
+        private TextBox cityBox;
     }
 }
 

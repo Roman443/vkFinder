@@ -6,8 +6,8 @@ namespace vkFinder
 {
     public partial class Form2 : Form
     {
+        private readonly MainForm _mainForm = new MainForm();
         private bool _authificated;
-        public MainForm MainForm = new MainForm();
 
         public Form2()
         {
@@ -20,6 +20,7 @@ namespace vkFinder
             AppSettings.Default.login = loginBox.Text;
             AppSettings.Default.password = passwordBox.Text;
             AppSettings.Default.Save();
+            authorizeButton.Enabled = false;
             AuthorizeWorker.RunWorkerAsync();
         }
 
@@ -38,7 +39,7 @@ namespace vkFinder
         {
             try
             {
-                MainForm.Authorize(AppSettings.Default.login, AppSettings.Default.password);
+                _mainForm.Authorize(AppSettings.Default.login, AppSettings.Default.password);
                 _authificated = true;
             }
             catch (Exception)
@@ -49,9 +50,9 @@ namespace vkFinder
 
         private void AuthorizeWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            authorizeButton.Enabled = true;
             if (!_authificated) return;
             MessageBox.Show(@"Успешная авторизация", @"Статус авторизации");
-            MainForm.AuthorizationSuccess();
             Close();
         }
     }
