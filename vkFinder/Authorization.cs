@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using VkNet;
 
 namespace vkFinder
 {
     public partial class Form2 : Form
     {
-        public static VkApi Vk = new VkApi();
         public Form2()
         {
             InitializeComponent();
