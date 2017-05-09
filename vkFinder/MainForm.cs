@@ -69,7 +69,7 @@ namespace vkFinder
             statusLabel.Text = @"Статус: Авторизован";
         }
 
-        private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
+        private void UserProcesserDoWork(object sender, DoWorkEventArgs e)
         {
             if (!Vk.IsAuthorized) return;
             var profileInfo = Vk.Account.GetProfileInfo();
@@ -111,7 +111,7 @@ namespace vkFinder
                             userListView.Invoke((Action) (() => userListView.Items.Add(listViewItem)));
                     }
                     i += 1;
-                    userProcesser.ReportProgress(i);
+                    UserProcesser.ReportProgress(i);
                 }
                 catch (AccessDeniedException)
                 {
@@ -119,12 +119,12 @@ namespace vkFinder
                 }
         }
 
-        private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void UserProcesserProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             userCheckingProgress.Value = e.ProgressPercentage;
         }
 
-        private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void UserProcesserRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             userCheckingProgress.Value = userCheckingProgress.Maximum;
             startButton.Enabled = true;
@@ -133,7 +133,7 @@ namespace vkFinder
         private void Button1Click(object sender, EventArgs e)
         {
             userListView.Items.Clear();
-            userProcesser.RunWorkerAsync();
+            UserProcesser.RunWorkerAsync();
             startButton.Enabled = false;
         }
 

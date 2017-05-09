@@ -35,6 +35,7 @@
             this.passwordBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.AuthorizeWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // authorizeButton
@@ -102,6 +103,11 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1CheckedChanged);
             // 
+            // AuthorizeWorker
+            // 
+            this.AuthorizeWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AuthorizeWorker_DoWork);
+            this.AuthorizeWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.AuthorizeWorker_RunWorkerCompleted);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,5 +139,6 @@
         private System.Windows.Forms.TextBox passwordBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.ComponentModel.BackgroundWorker AuthorizeWorker;
     }
 }

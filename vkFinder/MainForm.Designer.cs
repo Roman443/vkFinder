@@ -48,7 +48,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.authorization = new System.Windows.Forms.Button();
-            this.userProcesser = new System.ComponentModel.BackgroundWorker();
+            this.UserProcesser = new System.ComponentModel.BackgroundWorker();
             this.userCheckingProgress = new System.Windows.Forms.ProgressBar();
             this.sexLabel = new System.Windows.Forms.Label();
             this.sexMale = new System.Windows.Forms.RadioButton();
@@ -248,13 +248,13 @@
             this.authorization.UseVisualStyleBackColor = true;
             this.authorization.Click += new System.EventHandler(this.Button2Click);
             // 
-            // userProcesser
+            // UserProcesser
             // 
-            this.userProcesser.WorkerReportsProgress = true;
-            this.userProcesser.WorkerSupportsCancellation = true;
-            this.userProcesser.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
-            this.userProcesser.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
-            this.userProcesser.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
+            this.UserProcesser.WorkerReportsProgress = true;
+            this.UserProcesser.WorkerSupportsCancellation = true;
+            this.UserProcesser.DoWork += new System.ComponentModel.DoWorkEventHandler(this.UserProcesserDoWork);
+            this.UserProcesser.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.UserProcesserProgressChanged);
+            this.UserProcesser.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.UserProcesserRunWorkerCompleted);
             // 
             // userCheckingProgress
             // 
@@ -385,7 +385,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button authorization;
-        private System.ComponentModel.BackgroundWorker userProcesser;
+        private System.ComponentModel.BackgroundWorker UserProcesser;
         private System.Windows.Forms.ProgressBar userCheckingProgress;
         private System.Windows.Forms.Label sexLabel;
         private System.Windows.Forms.RadioButton sexMale;
