@@ -55,6 +55,7 @@
             this.sexFemale = new System.Windows.Forms.RadioButton();
             this.cityLabel = new System.Windows.Forms.Label();
             this.cityBox = new System.Windows.Forms.TextBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -77,18 +78,18 @@
             this.selfName.AutoSize = true;
             this.selfName.Location = new System.Drawing.Point(12, 9);
             this.selfName.Name = "selfName";
-            this.selfName.Size = new System.Drawing.Size(29, 13);
+            this.selfName.Size = new System.Drawing.Size(60, 13);
             this.selfName.TabIndex = 1;
-            this.selfName.Text = "Имя";
+            this.selfName.Text = "Ваше имя:";
             // 
             // selfGroups
             // 
             this.selfGroups.AutoSize = true;
             this.selfGroups.Location = new System.Drawing.Point(12, 34);
             this.selfGroups.Name = "selfGroups";
-            this.selfGroups.Size = new System.Drawing.Size(100, 13);
+            this.selfGroups.Size = new System.Drawing.Size(134, 13);
             this.selfGroups.TabIndex = 2;
-            this.selfGroups.Text = "Количество групп:";
+            this.selfGroups.Text = "Количество ваших групп:";
             // 
             // groupScreenName
             // 
@@ -310,11 +311,21 @@
             this.cityBox.TabIndex = 24;
             this.cityBox.Text = "Хабаровск";
             // 
+            // statusLabel
+            // 
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Location = new System.Drawing.Point(12, 371);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(129, 13);
+            this.statusLabel.TabIndex = 25;
+            this.statusLabel.Text = "Статус: Не авторизован";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 379);
+            this.ClientSize = new System.Drawing.Size(919, 390);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.cityBox);
             this.Controls.Add(this.cityLabel);
             this.Controls.Add(this.sexFemale);
@@ -381,6 +392,7 @@
         private System.Windows.Forms.RadioButton sexFemale;
         private System.Windows.Forms.Label cityLabel;
         private System.Windows.Forms.TextBox cityBox;
+        private System.Windows.Forms.Label statusLabel;
     }
 }
 

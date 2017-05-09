@@ -25,10 +25,14 @@ namespace vkFinder
 
         public void Authorize(string login, string password)
         {
-            var scope = Settings.All;
-            var appId = AppSettings.Default.app_id;
             Vk.Authorize(
-                new ApiAuthParams {ApplicationId = appId, Login = login, Password = password, Settings = scope});
+                new ApiAuthParams
+                {
+                    ApplicationId = AppSettings.Default.app_id,
+                    Login = login,
+                    Password = password,
+                    Settings = Settings.All
+                });
         }
 
         private static List<Group> GetSelfGroups()
@@ -59,13 +63,20 @@ namespace vkFinder
                 }).ToList();
         }
 
+        public void AuthorizationSuccess()
+        {
+            authorization.Enabled = false;
+            statusLabel.Text = @"Статус: Авторизован";
+        }
+
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
             if (!Vk.IsAuthorized) return;
             var profileInfo = Vk.Account.GetProfileInfo();
             var groups = GetSelfGroups();
             if (selfName.InvokeRequired)
-                selfName.Invoke((Action) (() => selfName.Text = $@"{profileInfo.FirstName} {profileInfo.LastName}"));
+                selfName.Invoke((Action) (() => selfName.Text =
+                    $@"Ваше имя: {profileInfo.FirstName} {profileInfo.LastName}"));
             if (selfGroups.InvokeRequired)
                 selfGroups.Invoke((Action) (() => selfGroups.Text = $@"Количество групп: {groups.Count}"));
             var utils = Vk.Utils;
@@ -99,7 +110,6 @@ namespace vkFinder
                         if (userListView.InvokeRequired)
                             userListView.Invoke((Action) (() => userListView.Items.Add(listViewItem)));
                     }
-
                     i += 1;
                     userProcesser.ReportProgress(i);
                 }
@@ -131,7 +141,6 @@ namespace vkFinder
         {
             var settingsForm = new Form2();
             settingsForm.Show();
-            authorization.Enabled = false;
         }
 
         private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

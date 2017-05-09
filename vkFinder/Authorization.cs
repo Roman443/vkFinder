@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
+using VkNet;
 
 namespace vkFinder
 {
     public partial class Form2 : Form
     {
+        public static VkApi Vk = new VkApi();
         public Form2()
         {
             InitializeComponent();
@@ -17,8 +19,17 @@ namespace vkFinder
             AppSettings.Default.login = loginBox.Text;
             AppSettings.Default.password = passwordBox.Text;
             AppSettings.Default.Save();
-            mf.Authorize(AppSettings.Default.login, AppSettings.Default.password);
-            Close();
+            try
+            {
+                mf.Authorize(AppSettings.Default.login, AppSettings.Default.password);
+                mf.AuthorizationSuccess();
+                Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+            
         }
 
         private void Form2Load(object sender, EventArgs e)
