@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="vkFinder" GeneratedClassName="AppSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="login" Type="System.String" Scope="User">
+      <Value Profile="(Default)">login</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">password</Value>
+    </Setting>
+    <Setting Name="app_id" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">4804700</Value>
+    </Setting>
+    <Setting Name="version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
