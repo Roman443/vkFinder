@@ -27,41 +27,45 @@ namespace vkFinder
         {
             var scope = Settings.All;
             var appId = AppSettings.Default.app_id;
-            Vk.Authorize(new ApiAuthParams
-            {
-                ApplicationId = appId,
-                Login = login,
-                Password = password,
-                Settings = scope
-            });
+            Vk.Authorize(
+                new ApiAuthParams {ApplicationId = appId, Login = login, Password = password, Settings = scope});
         }
 
-        public void SetUpUi()
+        private static List<Group> GetSelfGroups()
         {
+            return Vk.Groups.Get(new GroupsGetParams {UserId = Vk.UserId, Count = 1000}).ToList();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private static IEnumerable<Group> GetUserGroups(User user)
         {
-            userListView.Items.Clear();
-            userProcesser.RunWorkerAsync();
-            startButton.Enabled = false;
+            return Vk.Groups.Get(new GroupsGetParams {Count = 1000, UserId = user.Id}).ToList();
         }
 
-        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        private static List<User> UsersSearch(VkObject searchGroup, ushort min, ushort max, string city, Sex sex)
         {
-            if (userListView.SelectedItems.Count == 0) return;
-            userName.Text = userListView.SelectedItems[0].SubItems[0].Text;
-            userProfileUrl.Text = userListView.SelectedItems[0].SubItems[1].Text;
-            userPhoto.ImageLocation = userListView.SelectedItems[0].SubItems[2].Text;
+            return Vk.Users.Search(
+                new UserSearchParams
+                {
+                    AgeFrom = min,
+                    AgeTo = max,
+                    Sort = 0,
+                    Count = 1000,
+                    Country = 1,
+                    Hometown = city,
+                    Sex = sex,
+                    Fields = ProfileFields.Photo100,
+                    // ReSharper disable once PossibleInvalidOperationException
+                    GroupId = (ulong) searchGroup.Id
+                }).ToList();
         }
 
-        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
             if (!Vk.IsAuthorized) return;
-            var profileinfo = Vk.Account.GetProfileInfo();
+            var profileInfo = Vk.Account.GetProfileInfo();
             var groups = GetSelfGroups();
             if (selfName.InvokeRequired)
-                selfName.Invoke((Action) (() => selfName.Text = $@"{profileinfo.FirstName} {profileinfo.LastName}"));
+                selfName.Invoke((Action) (() => selfName.Text = $@"{profileInfo.FirstName} {profileInfo.LastName}"));
             if (selfGroups.InvokeRequired)
                 selfGroups.Invoke((Action) (() => selfGroups.Text = $@"Количество групп: {groups.Count}"));
             var utils = Vk.Utils;
@@ -72,7 +76,7 @@ namespace vkFinder
             int matches = Convert.ToInt16(minIntGroups.Value);
             var sex = sexMale.Checked ? Sex.Male : Sex.Female;
             if (searchGroup.Id == null) return;
-            var users = UsersSearch(searchGroup, min, max, sex);
+            var users = UsersSearch(searchGroup, min, max, cityBox.Text, sex);
             if (usersCount.InvokeRequired)
                 usersCount.Invoke((Action) (() => usersCount.Text = $@"Найдено: {users.Count}"));
             if (userCheckingProgress.InvokeRequired)
@@ -95,6 +99,7 @@ namespace vkFinder
                         if (userListView.InvokeRequired)
                             userListView.Invoke((Action) (() => userListView.Items.Add(listViewItem)));
                     }
+
                     i += 1;
                     userProcesser.ReportProgress(i);
                 }
@@ -104,13 +109,48 @@ namespace vkFinder
                 }
         }
 
-        private static IEnumerable<Group> GetUserGroups(User user)
+        private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            return Vk.Groups.Get(new GroupsGetParams
-            {
-                Count = 1000,
-                UserId = user.Id
-            }).ToList();
+            userCheckingProgress.Value = e.ProgressPercentage;
+        }
+
+        private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            userCheckingProgress.Value = userCheckingProgress.Maximum;
+            startButton.Enabled = true;
+        }
+
+        private void Button1Click(object sender, EventArgs e)
+        {
+            userListView.Items.Clear();
+            userProcesser.RunWorkerAsync();
+            startButton.Enabled = false;
+        }
+
+        private void Button2Click(object sender, EventArgs e)
+        {
+            var settingsForm = new Form2();
+            settingsForm.Show();
+            authorization.Enabled = false;
+        }
+
+        private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            userProfileUrl.Links[userProfileUrl.Links.IndexOf(e.Link)].Visited = true;
+            Process.Start(userProfileUrl.Text);
+        }
+
+        private void ListView1SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (userListView.SelectedItems.Count == 0) return;
+            userName.Text = userListView.SelectedItems[0].SubItems[0].Text;
+            userProfileUrl.Text = userListView.SelectedItems[0].SubItems[1].Text;
+            userPhoto.ImageLocation = userListView.SelectedItems[0].SubItems[2].Text;
+        }
+
+        private void MainFormLoad(object sender, EventArgs e)
+        {
+            Text = $@"vkGirlFinder v{AppSettings.Default.version}";
         }
 
         private VkObject ResolveGroup(UtilsCategory utils)
@@ -118,76 +158,18 @@ namespace vkFinder
             return utils.ResolveScreenName(groupScreenName.Text);
         }
 
-        private static List<Group> GetSelfGroups()
-        {
-            return Vk.Groups.Get(new GroupsGetParams
-            {
-                UserId = Vk.UserId,
-                Count = 1000
-            }).ToList();
-        }
-
-        private static List<User> UsersSearch(VkObject searchGroup, ushort min, ushort max, Sex sex)
-        {
-            return Vk.Users.Search(new UserSearchParams
-            {
-                AgeFrom = min,
-                AgeTo = max,
-                Sort = 0,
-                Count = 1000,
-                Country = 1,
-                Hometown = "Хабаровск",
-                Sex = sex,
-                Fields = ProfileFields.Photo100,
-                // ReSharper disable once PossibleInvalidOperationException
-                GroupId = (ulong) searchGroup.Id
-            }).ToList();
-        }
-
-        private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            userCheckingProgress.Value = e.ProgressPercentage;
-        }
-
-        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            userCheckingProgress.Value = userCheckingProgress.Maximum;
-            startButton.Enabled = true;
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            var settingsForm = new Form2();
-            settingsForm.Show();
-            authorization.Enabled = false;
-        }
-
-        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            userProfileUrl.Links[userProfileUrl.Links.IndexOf(e.Link)].Visited = true;
-            Process.Start(userProfileUrl.Text);
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            Text = $@"vkGirlFinder v{AppSettings.Default.version}";
-        }
-
         private class GroupComparer : IEqualityComparer<Group>
         {
             public bool Equals(Group x, Group y)
             {
-                if (ReferenceEquals(x, y))
-                    return true;
-                if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
-                    return false;
+                if (ReferenceEquals(x, y)) return true;
+                if (ReferenceEquals(x, null) || ReferenceEquals(y, null)) return false;
                 return x.Id == y.Id;
             }
 
             public int GetHashCode(Group group)
             {
-                if (ReferenceEquals(group, null))
-                    return 0;
+                if (ReferenceEquals(group, null)) return 0;
 
                 var hashProductName = group.Name == null ? 0 : group.Name.GetHashCode();
                 var hashProductCode = group.Id.GetHashCode();

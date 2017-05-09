@@ -46,7 +46,7 @@
             this.authorizeButton.TabIndex = 0;
             this.authorizeButton.Text = "Авторизоваться";
             this.authorizeButton.UseVisualStyleBackColor = true;
-            this.authorizeButton.Click += new System.EventHandler(this.Button1_Click);
+            this.authorizeButton.Click += new System.EventHandler(this.Button1Click);
             // 
             // loginLabel
             // 
@@ -100,7 +100,7 @@
             this.checkBox1.TabIndex = 6;
             this.checkBox1.Text = "Отображать пароль";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1CheckedChanged);
             // 
             // Form2
             // 
@@ -118,7 +118,7 @@
             this.MaximizeBox = false;
             this.Name = "Form2";
             this.Text = "Авторизация";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Load += new System.EventHandler(this.Form2Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

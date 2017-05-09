@@ -53,6 +53,8 @@
             this.sexLabel = new System.Windows.Forms.Label();
             this.sexMale = new System.Windows.Forms.RadioButton();
             this.sexFemale = new System.Windows.Forms.RadioButton();
+            this.cityLabel = new System.Windows.Forms.Label();
+            this.cityBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -68,7 +70,7 @@
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Старт";
             this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.Button1_Click);
+            this.startButton.Click += new System.EventHandler(this.Button1Click);
             // 
             // selfName
             // 
@@ -151,7 +153,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 135);
+            this.label6.Location = new System.Drawing.Point(12, 174);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 13);
             this.label6.TabIndex = 10;
@@ -159,7 +161,7 @@
             // 
             // minIntGroups
             // 
-            this.minIntGroups.Location = new System.Drawing.Point(15, 151);
+            this.minIntGroups.Location = new System.Drawing.Point(15, 190);
             this.minIntGroups.Name = "minIntGroups";
             this.minIntGroups.Size = new System.Drawing.Size(65, 20);
             this.minIntGroups.TabIndex = 11;
@@ -193,7 +195,7 @@
             this.userProfileUrl.Name = "userProfileUrl";
             this.userProfileUrl.Size = new System.Drawing.Size(0, 13);
             this.userProfileUrl.TabIndex = 14;
-            this.userProfileUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1_LinkClicked);
+            this.userProfileUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1LinkClicked);
             // 
             // userPhoto
             // 
@@ -217,7 +219,7 @@
             this.userListView.TabIndex = 16;
             this.userListView.UseCompatibleStateImageBehavior = false;
             this.userListView.View = System.Windows.Forms.View.Details;
-            this.userListView.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
+            this.userListView.SelectedIndexChanged += new System.EventHandler(this.ListView1SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -243,15 +245,15 @@
             this.authorization.TabIndex = 17;
             this.authorization.Text = "Авторизация";
             this.authorization.UseVisualStyleBackColor = true;
-            this.authorization.Click += new System.EventHandler(this.Button2_Click);
+            this.authorization.Click += new System.EventHandler(this.Button2Click);
             // 
             // userProcesser
             // 
             this.userProcesser.WorkerReportsProgress = true;
             this.userProcesser.WorkerSupportsCancellation = true;
-            this.userProcesser.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
-            this.userProcesser.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1_ProgressChanged);
-            this.userProcesser.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
+            this.userProcesser.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
+            this.userProcesser.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
+            this.userProcesser.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
             // userCheckingProgress
             // 
@@ -263,7 +265,7 @@
             // sexLabel
             // 
             this.sexLabel.AutoSize = true;
-            this.sexLabel.Location = new System.Drawing.Point(12, 177);
+            this.sexLabel.Location = new System.Drawing.Point(12, 216);
             this.sexLabel.Name = "sexLabel";
             this.sexLabel.Size = new System.Drawing.Size(27, 13);
             this.sexLabel.TabIndex = 19;
@@ -272,7 +274,7 @@
             // sexMale
             // 
             this.sexMale.AutoSize = true;
-            this.sexMale.Location = new System.Drawing.Point(49, 177);
+            this.sexMale.Location = new System.Drawing.Point(49, 216);
             this.sexMale.Name = "sexMale";
             this.sexMale.Size = new System.Drawing.Size(63, 17);
             this.sexMale.TabIndex = 21;
@@ -283,7 +285,7 @@
             // 
             this.sexFemale.AutoSize = true;
             this.sexFemale.Checked = true;
-            this.sexFemale.Location = new System.Drawing.Point(49, 200);
+            this.sexFemale.Location = new System.Drawing.Point(49, 239);
             this.sexFemale.Name = "sexFemale";
             this.sexFemale.Size = new System.Drawing.Size(71, 17);
             this.sexFemale.TabIndex = 22;
@@ -291,11 +293,30 @@
             this.sexFemale.Text = "Девушка";
             this.sexFemale.UseVisualStyleBackColor = true;
             // 
+            // cityLabel
+            // 
+            this.cityLabel.AutoSize = true;
+            this.cityLabel.Location = new System.Drawing.Point(12, 135);
+            this.cityLabel.Name = "cityLabel";
+            this.cityLabel.Size = new System.Drawing.Size(40, 13);
+            this.cityLabel.TabIndex = 23;
+            this.cityLabel.Text = "Город:";
+            // 
+            // cityBox
+            // 
+            this.cityBox.Location = new System.Drawing.Point(15, 151);
+            this.cityBox.Name = "cityBox";
+            this.cityBox.Size = new System.Drawing.Size(100, 20);
+            this.cityBox.TabIndex = 24;
+            this.cityBox.Text = "Хабаровск";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 380);
+            this.ClientSize = new System.Drawing.Size(919, 379);
+            this.Controls.Add(this.cityBox);
+            this.Controls.Add(this.cityLabel);
             this.Controls.Add(this.sexFemale);
             this.Controls.Add(this.sexMale);
             this.Controls.Add(this.sexLabel);
@@ -321,7 +342,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "FormName";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.MainFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).EndInit();
@@ -358,6 +379,8 @@
         private System.Windows.Forms.Label sexLabel;
         private System.Windows.Forms.RadioButton sexMale;
         private System.Windows.Forms.RadioButton sexFemale;
+        private System.Windows.Forms.Label cityLabel;
+        private System.Windows.Forms.TextBox cityBox;
     }
 }
 

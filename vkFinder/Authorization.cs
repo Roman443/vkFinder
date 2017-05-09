@@ -10,7 +10,7 @@ namespace vkFinder
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void Button1Click(object sender, EventArgs e)
         {
             var mf = new MainForm();
             if (!((loginBox.Text != "") & (passwordBox.Text != ""))) return;
@@ -21,13 +21,13 @@ namespace vkFinder
             Close();
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void Form2Load(object sender, EventArgs e)
         {
             loginBox.Text = AppSettings.Default.login;
             passwordBox.Text = AppSettings.Default.password;
         }
 
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1CheckedChanged(object sender, EventArgs e)
         {
             passwordBox.UseSystemPasswordChar = !checkBox1.Checked;
         }
