@@ -31,7 +31,7 @@ namespace vkFinder
         /// </summary>
         private void InitializeComponent()
         {
-            this.authorizeButton = new System.Windows.Forms.Button();
+            this.AuthorizeButton = new System.Windows.Forms.Button();
             this.loginLabel = new System.Windows.Forms.Label();
             this.loginBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
@@ -41,16 +41,16 @@ namespace vkFinder
             this.AuthorizeWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
-            // authorizeButton
+            // AuthorizeButton
             // 
-            this.authorizeButton.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.authorizeButton.Location = new System.Drawing.Point(36, 121);
-            this.authorizeButton.Name = "authorizeButton";
-            this.authorizeButton.Size = new System.Drawing.Size(129, 25);
-            this.authorizeButton.TabIndex = 0;
-            this.authorizeButton.Text = "Авторизоваться";
-            this.authorizeButton.UseVisualStyleBackColor = true;
-            this.authorizeButton.Click += new System.EventHandler(this.Button1Click);
+            this.AuthorizeButton.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AuthorizeButton.Location = new System.Drawing.Point(36, 121);
+            this.AuthorizeButton.Name = "AuthorizeButton";
+            this.AuthorizeButton.Size = new System.Drawing.Size(129, 25);
+            this.AuthorizeButton.TabIndex = 0;
+            this.AuthorizeButton.Text = "Авторизоваться";
+            this.AuthorizeButton.UseVisualStyleBackColor = true;
+            this.AuthorizeButton.Click += new System.EventHandler(this.AuthorizeButtonClick);
             // 
             // loginLabel
             // 
@@ -122,7 +122,7 @@ namespace vkFinder
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.loginBox);
             this.Controls.Add(this.loginLabel);
-            this.Controls.Add(this.authorizeButton);
+            this.Controls.Add(this.AuthorizeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form2";
@@ -135,7 +135,7 @@ namespace vkFinder
 
         #endregion
 
-        private Button authorizeButton;
+        private Button AuthorizeButton;
         private Label loginLabel;
         private TextBox loginBox;
         private Label passwordLabel;

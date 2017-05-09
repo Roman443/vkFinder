@@ -60,6 +60,7 @@ namespace vkFinder
             this.sexFemale = new System.Windows.Forms.RadioButton();
             this.cityLabel = new System.Windows.Forms.Label();
             this.cityBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -315,11 +316,22 @@ namespace vkFinder
             this.cityBox.TabIndex = 24;
             this.cityBox.Text = "Хабаровск";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(12, 371);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Статус: Не авторизован";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 379);
+            this.ClientSize = new System.Drawing.Size(919, 392);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cityBox);
             this.Controls.Add(this.cityLabel);
             this.Controls.Add(this.sexFemale);
@@ -386,6 +398,7 @@ namespace vkFinder
         private RadioButton sexFemale;
         private Label cityLabel;
         private TextBox cityBox;
+        public Label label1;
     }
 }
 

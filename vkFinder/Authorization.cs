@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace vkFinder
 {
     public partial class Form2 : Form
     {
-        private readonly MainForm _mainForm = new MainForm();
         private bool _authificated;
 
         public Form2()
@@ -14,13 +14,13 @@ namespace vkFinder
             InitializeComponent();
         }
 
-        private void Button1Click(object sender, EventArgs e)
+        private void AuthorizeButtonClick(object sender, EventArgs e)
         {
             if (loginBox.Text == "" || passwordBox.Text == "") return;
             AppSettings.Default.login = loginBox.Text;
             AppSettings.Default.password = passwordBox.Text;
             AppSettings.Default.Save();
-            authorizeButton.Enabled = false;
+            AuthorizeButton.Enabled = false;
             AuthorizeWorker.RunWorkerAsync();
         }
 
@@ -39,7 +39,8 @@ namespace vkFinder
         {
             try
             {
-                _mainForm.Authorize(AppSettings.Default.login, AppSettings.Default.password);
+                var mainForm = Owner as MainForm;
+                mainForm?.Authorize(AppSettings.Default.login, AppSettings.Default.password);
                 _authificated = true;
             }
             catch (Exception)
@@ -50,9 +51,14 @@ namespace vkFinder
 
         private void AuthorizeWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            authorizeButton.Enabled = true;
+            AuthorizeButton.Enabled = true;
             if (!_authificated) return;
             MessageBox.Show(@"Успешная авторизация", @"Статус авторизации");
+            if (Owner is MainForm mainForm)
+            {
+                mainForm.label1.ForeColor = Color.Green;
+                mainForm.label1.Text = @"Статус: Авторизован";
+            }
             Close();
         }
     }

@@ -133,8 +133,8 @@ namespace vkFinder
 
         private void Button2Click(object sender, EventArgs e)
         {
-            var settingsForm = new Form2();
-            settingsForm.Show();
+            var settingsForm = new Form2 {Owner = this};
+            settingsForm.ShowDialog();
         }
 
         private void LinkLabel1LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
