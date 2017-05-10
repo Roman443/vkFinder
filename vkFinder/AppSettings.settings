@@ -12,7 +12,7 @@
       <Value Profile="(Default)">4804700</Value>
     </Setting>
     <Setting Name="version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0.5</Value>
+      <Value Profile="(Default)">0.5.10</Value>
     </Setting>
   </Settings>
 </SettingsFile>
