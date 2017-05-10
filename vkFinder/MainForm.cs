@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using VkNet;
 using VkNet.Categories;
 using VkNet.Enums;
 using VkNet.Enums.Filters;
-using VkNet.Exception;
 using VkNet.Model;
 using VkNet.Model.RequestParams;
 
@@ -40,12 +40,8 @@ namespace vkFinder
             return Vk.Groups.Get(new GroupsGetParams {UserId = Vk.UserId, Count = 1000}).ToList();
         }
 
-        private static IEnumerable<Group> GetUserGroups(User user)
-        {
-            return Vk.Groups.Get(new GroupsGetParams {Count = 1000, UserId = user.Id}).ToList();
-        }
-
-        private static List<User> UsersSearch(VkObject searchGroup, ushort min, ushort max, string city, Sex sex)
+        private static List<User> UsersSearch([NotNull] VkObject searchGroup, ushort min, ushort max, string city,
+            Sex sex)
         {
             return Vk.Users.Search(
                 new UserSearchParams
@@ -65,7 +61,6 @@ namespace vkFinder
 
         private void UserProcesserDoWork(object sender, DoWorkEventArgs e)
         {
-            if (!Vk.IsAuthorized) return;
             var profileInfo = Vk.Account.GetProfileInfo();
             var groups = GetSelfGroups();
             if (selfName.InvokeRequired)
@@ -90,7 +85,7 @@ namespace vkFinder
             foreach (var user in users)
                 try
                 {
-                    var userGroups = GetUserGroups(user);
+                    var userGroups = Vk.Groups.Get(new GroupsGetParams {Count = 1000, UserId = user.Id}).ToList();
                     var userFirstName = user.FirstName;
                     var userLastName = user.LastName;
                     var photoLink = user.Photo100.AbsoluteUri;
@@ -107,7 +102,7 @@ namespace vkFinder
                     i += 1;
                     UserProcesser.ReportProgress(i);
                 }
-                catch (AccessDeniedException)
+                catch
                 {
                     // ignored
                 }
@@ -126,9 +121,14 @@ namespace vkFinder
 
         private void Button1Click(object sender, EventArgs e)
         {
+            if (!Vk.IsAuthorized)
+            {
+                MessageBox.Show(@"Вы не авторизовались", @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             userListView.Items.Clear();
-            UserProcesser.RunWorkerAsync();
             startButton.Enabled = false;
+            UserProcesser.RunWorkerAsync();
         }
 
         private void Button2Click(object sender, EventArgs e)
@@ -146,9 +146,26 @@ namespace vkFinder
         private void ListView1SelectedIndexChanged(object sender, EventArgs e)
         {
             if (userListView.SelectedItems.Count == 0) return;
-            userName.Text = userListView.SelectedItems[0].SubItems[0].Text;
-            userProfileUrl.Text = userListView.SelectedItems[0].SubItems[1].Text;
-            userPhoto.ImageLocation = userListView.SelectedItems[0].SubItems[2].Text;
+            userName.Text = $@"Имя: {GetUserName()}";
+            userPhoto.ImageLocation = GetUserImageLocation();
+            userProfileUrl.Text = GetUserProfileUrl();
+            if (MessageSend.Enabled) return;
+            MessageSend.Enabled = true;
+        }
+
+        private string GetUserName()
+        {
+            return userListView.SelectedItems[0].SubItems[0].Text;
+        }
+
+        private string GetUserImageLocation()
+        {
+            return userListView.SelectedItems[0].SubItems[2].Text;
+        }
+
+        private string GetUserProfileUrl()
+        {
+            return userListView.SelectedItems[0].SubItems[1].Text;
         }
 
         private void MainFormLoad(object sender, EventArgs e)
@@ -159,6 +176,23 @@ namespace vkFinder
         private VkObject ResolveGroup(UtilsCategory utils)
         {
             return utils.ResolveScreenName(groupScreenName.Text);
+        }
+
+        private void MessageSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Vk.Messages.Send(new MessagesSendParams
+                {
+                    UserId = Convert.ToInt64(GetUserProfileUrl().Replace("https://vk.com/id", "")),
+                    Message = MessageTextBox.Text
+                });
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, @"Ошибка отправки сообщения", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private class GroupComparer : IEqualityComparer<Group>

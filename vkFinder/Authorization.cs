@@ -43,9 +43,9 @@ namespace vkFinder
                 mainForm?.Authorize(AppSettings.Default.login, AppSettings.Default.password);
                 _authificated = true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBox.Show(@"Ошибка авторизации", @"Статус авторизации");
+                MessageBox.Show(exception.Message, @"Статус авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -53,7 +53,8 @@ namespace vkFinder
         {
             AuthorizeButton.Enabled = true;
             if (!_authificated) return;
-            MessageBox.Show(@"Успешная авторизация", @"Статус авторизации");
+            MessageBox.Show(@"Успешная авторизация", @"Статус авторизации", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             if (Owner is MainForm mainForm)
             {
                 mainForm.label1.ForeColor = Color.Green;

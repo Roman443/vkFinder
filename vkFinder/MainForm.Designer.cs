@@ -33,6 +33,7 @@ namespace vkFinder
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.startButton = new System.Windows.Forms.Button();
             this.selfName = new System.Windows.Forms.Label();
             this.selfGroups = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@ namespace vkFinder
             this.usersCount = new System.Windows.Forms.Label();
             this.userName = new System.Windows.Forms.Label();
             this.userProfileUrl = new System.Windows.Forms.LinkLabel();
-            this.userPhoto = new System.Windows.Forms.PictureBox();
             this.userListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,6 +61,11 @@ namespace vkFinder
             this.cityLabel = new System.Windows.Forms.Label();
             this.cityBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.MessageTextBox = new System.Windows.Forms.TextBox();
+            this.SendMessageLabel = new System.Windows.Forms.Label();
+            this.MessageSend = new System.Windows.Forms.Button();
+            this.userPhoto = new System.Windows.Forms.PictureBox();
+            this.LinkLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -191,26 +196,18 @@ namespace vkFinder
             this.userName.AutoSize = true;
             this.userName.Location = new System.Drawing.Point(605, 135);
             this.userName.Name = "userName";
-            this.userName.Size = new System.Drawing.Size(0, 13);
+            this.userName.Size = new System.Drawing.Size(35, 13);
             this.userName.TabIndex = 13;
+            this.userName.Text = "Имя: ";
             // 
             // userProfileUrl
             // 
             this.userProfileUrl.AutoSize = true;
-            this.userProfileUrl.Location = new System.Drawing.Point(605, 151);
+            this.userProfileUrl.Location = new System.Drawing.Point(660, 154);
             this.userProfileUrl.Name = "userProfileUrl";
             this.userProfileUrl.Size = new System.Drawing.Size(0, 13);
             this.userProfileUrl.TabIndex = 14;
             this.userProfileUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel1LinkClicked);
-            // 
-            // userPhoto
-            // 
-            this.userPhoto.Location = new System.Drawing.Point(608, 25);
-            this.userPhoto.Name = "userPhoto";
-            this.userPhoto.Size = new System.Drawing.Size(100, 100);
-            this.userPhoto.TabIndex = 15;
-            this.userPhoto.TabStop = false;
-            this.userPhoto.WaitOnLoad = true;
             // 
             // userListView
             // 
@@ -326,11 +323,63 @@ namespace vkFinder
             this.label1.TabIndex = 25;
             this.label1.Text = "Статус: Не авторизован";
             // 
+            // MessageTextBox
+            // 
+            this.MessageTextBox.Location = new System.Drawing.Point(608, 190);
+            this.MessageTextBox.Multiline = true;
+            this.MessageTextBox.Name = "MessageTextBox";
+            this.MessageTextBox.Size = new System.Drawing.Size(218, 88);
+            this.MessageTextBox.TabIndex = 26;
+            // 
+            // SendMessageLabel
+            // 
+            this.SendMessageLabel.AutoSize = true;
+            this.SendMessageLabel.Location = new System.Drawing.Point(605, 174);
+            this.SendMessageLabel.Name = "SendMessageLabel";
+            this.SendMessageLabel.Size = new System.Drawing.Size(124, 13);
+            this.SendMessageLabel.TabIndex = 27;
+            this.SendMessageLabel.Text = "Отправить сообщение:";
+            // 
+            // MessageSend
+            // 
+            this.MessageSend.Enabled = false;
+            this.MessageSend.Location = new System.Drawing.Point(608, 284);
+            this.MessageSend.Name = "MessageSend";
+            this.MessageSend.Size = new System.Drawing.Size(75, 23);
+            this.MessageSend.TabIndex = 28;
+            this.MessageSend.Text = "Отправить";
+            this.MessageSend.UseVisualStyleBackColor = true;
+            this.MessageSend.Click += new System.EventHandler(this.MessageSend_Click);
+            // 
+            // userPhoto
+            // 
+            this.userPhoto.Image = ((System.Drawing.Image)(resources.GetObject("userPhoto.Image")));
+            this.userPhoto.Location = new System.Drawing.Point(608, 25);
+            this.userPhoto.Name = "userPhoto";
+            this.userPhoto.Size = new System.Drawing.Size(100, 100);
+            this.userPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.userPhoto.TabIndex = 15;
+            this.userPhoto.TabStop = false;
+            this.userPhoto.WaitOnLoad = true;
+            // 
+            // LinkLabel
+            // 
+            this.LinkLabel.AutoSize = true;
+            this.LinkLabel.Location = new System.Drawing.Point(605, 154);
+            this.LinkLabel.Name = "LinkLabel";
+            this.LinkLabel.Size = new System.Drawing.Size(49, 13);
+            this.LinkLabel.TabIndex = 29;
+            this.LinkLabel.Text = "Ссылка:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 392);
+            this.Controls.Add(this.LinkLabel);
+            this.Controls.Add(this.MessageSend);
+            this.Controls.Add(this.SendMessageLabel);
+            this.Controls.Add(this.MessageTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cityBox);
             this.Controls.Add(this.cityLabel);
@@ -399,6 +448,10 @@ namespace vkFinder
         private Label cityLabel;
         private TextBox cityBox;
         public Label label1;
+        private TextBox MessageTextBox;
+        private Label SendMessageLabel;
+        private Button MessageSend;
+        private Label LinkLabel;
     }
 }
 
