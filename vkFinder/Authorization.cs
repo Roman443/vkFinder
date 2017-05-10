@@ -52,7 +52,8 @@ namespace vkFinder
         private void AuthorizeWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             AuthorizeButton.Enabled = true;
-            if (!_authificated) return;
+            if (!_authificated)
+                return;
             MessageBox.Show(@"Успешная авторизация", @"Статус авторизации", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
             if (Owner is MainForm mainForm)

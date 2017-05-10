@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using JetBrains.Annotations;
 using VkNet;
 using VkNet.Categories;
 using VkNet.Enums;
@@ -40,7 +39,7 @@ namespace vkFinder
             return Vk.Groups.Get(new GroupsGetParams {UserId = Vk.UserId, Count = 1000}).ToList();
         }
 
-        private static List<User> UsersSearch([NotNull] VkObject searchGroup, ushort min, ushort max, string city,
+        private static List<User> UsersSearch(VkObject searchGroup, ushort min, ushort max, string city,
             Sex sex)
         {
             return Vk.Users.Search(
@@ -75,7 +74,11 @@ namespace vkFinder
             var i = 0;
             int matches = Convert.ToInt16(minIntGroups.Value);
             var sex = sexMale.Checked ? Sex.Male : Sex.Female;
-            if (searchGroup.Id == null) return;
+            if (searchGroup == null)
+            {
+                MessageBox.Show(@"Группа не найдена", @"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var users = UsersSearch(searchGroup, min, max, cityBox.Text, sex);
             if (usersCount.InvokeRequired)
                 usersCount.Invoke((Action) (() => usersCount.Text = $@"Найдено: {users.Count}"));
@@ -85,6 +88,11 @@ namespace vkFinder
             foreach (var user in users)
                 try
                 {
+                    if (UserProcesser.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                     var userGroups = Vk.Groups.Get(new GroupsGetParams {Count = 1000, UserId = user.Id}).ToList();
                     var userFirstName = user.FirstName;
                     var userLastName = user.LastName;
@@ -117,6 +125,7 @@ namespace vkFinder
         {
             userCheckingProgress.Value = userCheckingProgress.Maximum;
             startButton.Enabled = true;
+            StopButton.Enabled = false;
         }
 
         private void Button1Click(object sender, EventArgs e)
@@ -128,6 +137,7 @@ namespace vkFinder
             }
             userListView.Items.Clear();
             startButton.Enabled = false;
+            StopButton.Enabled = true;
             UserProcesser.RunWorkerAsync();
         }
 
@@ -193,6 +203,12 @@ namespace vkFinder
                 MessageBox.Show(exception.Message, @"Ошибка отправки сообщения", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            if (UserProcesser.IsBusy)
+                UserProcesser.CancelAsync();
         }
 
         private class GroupComparer : IEqualityComparer<Group>

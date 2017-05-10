@@ -66,6 +66,7 @@ namespace vkFinder
             this.MessageSend = new System.Windows.Forms.Button();
             this.userPhoto = new System.Windows.Forms.PictureBox();
             this.LinkLabel = new System.Windows.Forms.Label();
+            this.StopButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.minAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minIntGroups)).BeginInit();
@@ -75,9 +76,9 @@ namespace vkFinder
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.startButton.Location = new System.Drawing.Point(12, 270);
+            this.startButton.Location = new System.Drawing.Point(12, 271);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(122, 46);
+            this.startButton.Size = new System.Drawing.Size(97, 45);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Старт";
             this.startButton.UseVisualStyleBackColor = true;
@@ -241,10 +242,10 @@ namespace vkFinder
             // 
             // authorization
             // 
-            this.authorization.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.authorization.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.authorization.Location = new System.Drawing.Point(12, 322);
             this.authorization.Name = "authorization";
-            this.authorization.Size = new System.Drawing.Size(122, 46);
+            this.authorization.Size = new System.Drawing.Size(200, 45);
             this.authorization.TabIndex = 17;
             this.authorization.Text = "Авторизация";
             this.authorization.UseVisualStyleBackColor = true;
@@ -371,11 +372,24 @@ namespace vkFinder
             this.LinkLabel.TabIndex = 29;
             this.LinkLabel.Text = "Ссылка:";
             // 
+            // StopButton
+            // 
+            this.StopButton.Enabled = false;
+            this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StopButton.Location = new System.Drawing.Point(115, 271);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(97, 45);
+            this.StopButton.TabIndex = 30;
+            this.StopButton.Text = "Стоп";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 392);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.LinkLabel);
             this.Controls.Add(this.MessageSend);
             this.Controls.Add(this.SendMessageLabel);
@@ -452,6 +466,7 @@ namespace vkFinder
         private Label SendMessageLabel;
         private Button MessageSend;
         private Label LinkLabel;
+        private Button StopButton;
     }
 }
 
